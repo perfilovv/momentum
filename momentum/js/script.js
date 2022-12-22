@@ -45,13 +45,16 @@ showGreeting();
 function setLocalStorage() {
   const name = document.querySelector('.name');
   localStorage.setItem('name', name.value);
+  localStorage.setItem('city', city.value);
 }
 window.addEventListener('beforeunload', setLocalStorage);
 
 function getLocalStorage() {
   const name = document.querySelector('.name');
-  if (localStorage.getItem('name')) {
+  if (localStorage.getItem('name') || localStorage.getItem('city')) {
     name.value = localStorage.getItem('name');
+    city.value = localStorage.getItem('city');
+    getWeather();
   }
 }
 window.addEventListener('load', getLocalStorage);
@@ -79,7 +82,7 @@ function setBg() {
 }
 setBg();
 
-const slideNext = document.querySelector('.slide-next');
+let slideNext = document.querySelector('.slide-next');
 slideNext.addEventListener('click', getSlideNext);
 
 function getSlideNext() {
@@ -107,3 +110,35 @@ function getSlidePrev() {
     setBg(timeOfDay, bgNum);
   }
 }
+
+const weatherIcon = document.querySelector('.weather-icon');
+const temperature = document.querySelector('.temperature');
+const weatherDescription = document.querySelector('.weather-description');
+const city = document.querySelector('.city');
+const wind = document.querySelector('.wind');
+const humidity = document.querySelector('.humidity');
+
+async function getWeather() {
+  if (city.value === '') {
+    city.value = 'Minsk';
+  }
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=df03f79709a93dd0dbb3c45d94366c54&units=metric`;
+  const res = await fetch(url);
+  const data = await res.json();
+  weatherIcon.className = 'weather-icon owf';
+  weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+  temperature.textContent = `${data.main.temp.toFixed(0)}°C`;
+  weatherDescription.textContent = data.weather[0].description;
+  wind.textContent = `Wind speed: ${data.wind.speed} m/c`;
+  humidity.textContent = `Humidity: ${data.main.humidity}%`;
+}
+
+function setCity(event) {
+  if (event.code === 'Enter') {
+    getWeather();
+    city.blur();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', getWeather);
+city.addEventListener('keypress', setCity);
