@@ -142,3 +142,19 @@ function setCity(event) {
 
 document.addEventListener('DOMContentLoaded', getWeather);
 city.addEventListener('keypress', setCity);
+
+
+async function getQuotes() {
+  const quotes = '../assets/quotes.json';
+  const res = await fetch(quotes);
+  const data = await res.json();
+  const quote = document.querySelector('.quote');
+  const author = document.querySelector('.author');
+  let randomQuotes = Math.floor(Math.random() * data.length);
+  quote.textContent = `"${data[randomQuotes].text}"`;
+  author.textContent = data[randomQuotes].author;
+}
+getQuotes();
+
+const changeQuote = document.querySelector('.change-quote');
+changeQuote.addEventListener('click', getQuotes);
