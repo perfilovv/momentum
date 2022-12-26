@@ -51,13 +51,14 @@ window.addEventListener('beforeunload', setLocalStorage);
 
 function getLocalStorage() {
   const name = document.querySelector('.name');
+  city.value = 'Minsk';
   if (localStorage.getItem('name') || localStorage.getItem('city')) {
     name.value = localStorage.getItem('name');
     city.value = localStorage.getItem('city');
-    getWeather();
   }
+  getWeather();
 }
-window.addEventListener('load', getLocalStorage);
+window.addEventListener('DOMContentLoaded', getLocalStorage);
 
 
 
@@ -117,31 +118,44 @@ const weatherDescription = document.querySelector('.weather-description');
 const city = document.querySelector('.city');
 const wind = document.querySelector('.wind');
 const humidity = document.querySelector('.humidity');
+const weatherError = document.querySelector('.weather-error');
 
 async function getWeather() {
-  if (city.value === '') {
-    city.value = 'Minsk';
-  }
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=df03f79709a93dd0dbb3c45d94366c54&units=metric`;
   const res = await fetch(url);
   const data = await res.json();
-  weatherIcon.className = 'weather-icon owf';
-  weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-  temperature.textContent = `${data.main.temp.toFixed(0)}°C`;
-  weatherDescription.textContent = data.weather[0].description;
-  wind.textContent = `Wind speed: ${data.wind.speed} m/c`;
-  humidity.textContent = `Humidity: ${data.main.humidity}%`;
-}
 
-function setCity(event) {
-  if (event.code === 'Enter') {
-    getWeather();
-    city.blur();
+  try {
+    if (city.value == '') {
+      city.placeholder = '[Enter city]';
+    }
+    weatherIcon.className = 'weather-icon owf';
+    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+    temperature.textContent = `${data.main.temp.toFixed(0)}°C`;
+    weatherDescription.textContent = data.weather[0].description;
+    wind.textContent = `Wind speed: ${data.wind.speed} m/c`;
+    humidity.textContent = `Humidity: ${data.main.humidity}%`;
+    weatherError.textContent = '';
+  } catch {
+    weatherIcon.textContent = '';
+    temperature.textContent = '';
+    weatherDescription.textContent = '';
+    wind.textContent = '';
+    humidity.textContent = '';
+    if (data.cod == 400) {
+      weatherError.textContent = 'Error! Nothing to geocode for!';
+    } else if (data.cod == 404) {
+      weatherError.textContent = `Error! city not found for '${city.value}'`;
+    }
   }
 }
 
-document.addEventListener('DOMContentLoaded', getWeather);
-city.addEventListener('keypress', setCity);
+
+function setCity(event) {
+  getWeather(event.target.value);
+}
+
+city.addEventListener('change', setCity);
 
 
 async function getQuotes() {
