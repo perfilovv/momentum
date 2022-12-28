@@ -1,3 +1,5 @@
+import playlist from "./playlist.js";
+
 function showTime() {
   const time = document.querySelector('.time');
   const date = new Date();
@@ -172,3 +174,42 @@ getQuotes();
 
 const changeQuote = document.querySelector('.change-quote');
 changeQuote.addEventListener('click', getQuotes);
+
+const audio = new Audio();
+const play = document.querySelector('.play');
+let isPlay = false;
+
+function playAudio() {
+  audio.src = playlist[1].src;
+  audio.currentTime = 0;
+  audio.play();
+}
+
+function pauseAudio() {
+  audio.pause();
+}
+
+function playPause() {
+  if (isPlay == false) {
+    isPlay = true;
+    playAudio();
+  } else {
+    isPlay = false;
+    pauseAudio();
+  }
+}
+
+function toggleBtn() {
+  playPause();
+  play.classList.toggle('pause');
+}
+play.addEventListener('click', toggleBtn);
+
+const playlistContainer = document.querySelector('.play-list');
+playlist.forEach((el) => {
+  const li = document.createElement('li');
+  li.classList.add('play-item');
+  li.textContent = el.title;
+  playlistContainer.append(li);
+});
+
