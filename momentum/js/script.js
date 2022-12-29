@@ -177,10 +177,12 @@ changeQuote.addEventListener('click', getQuotes);
 
 const audio = new Audio();
 const play = document.querySelector('.play');
+const playPrevBtn = document.querySelector('.play-prev');
+const playNextBtn = document.querySelector('.play-next');
 let isPlay = false;
 
 function playAudio() {
-  audio.src = playlist[1].src;
+  audio.src = playlist[playNum].src;
   audio.currentTime = 0;
   audio.play();
 }
@@ -205,6 +207,7 @@ function toggleBtn() {
 }
 play.addEventListener('click', toggleBtn);
 
+
 const playlistContainer = document.querySelector('.play-list');
 playlist.forEach((el) => {
   const li = document.createElement('li');
@@ -213,3 +216,31 @@ playlist.forEach((el) => {
   playlistContainer.append(li);
 });
 
+let playNum = 0;
+
+function playNext() {
+  isPlay = true;
+  play.classList.add('pause');
+  if (playNum < 3) {
+    playNum += 1;
+  } else if (playNum >= 3) {
+    playNum = 0;
+  }
+  playAudio();
+}
+
+playNextBtn.addEventListener('click', playNext);
+
+
+function playPrev() {
+  isPlay = true;
+  play.classList.add('pause');
+  if (playNum > 0) {
+    playNum -= 1;
+  } else if (playNum == 0) {
+    playNum = 3;
+  }
+  playAudio();
+}
+
+playPrevBtn.addEventListener('click', playPrev);
