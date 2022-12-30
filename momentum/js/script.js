@@ -181,6 +181,8 @@ const playPrevBtn = document.querySelector('.play-prev');
 const playNextBtn = document.querySelector('.play-next');
 let isPlay = false;
 
+audio.addEventListener('ended', playNext);
+
 function playAudio() {
   audio.src = playlist[playNum].src;
   audio.currentTime = 0;
