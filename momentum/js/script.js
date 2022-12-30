@@ -218,6 +218,17 @@ playlist.forEach((el) => {
 
 let playNum = 0;
 
+const playItem = document.querySelectorAll('.play-item');
+playItem.forEach((el, index) => el.setAttribute('id', index));
+
+function setActiveSong() {
+  const currentSong = document.getElementById(`${playNum}`);
+  playItem.forEach((el) => el.classList.remove('item-active'));
+  currentSong.classList.add('item-active');
+}
+setActiveSong();
+
+
 function playNext() {
   isPlay = true;
   play.classList.add('pause');
@@ -226,6 +237,7 @@ function playNext() {
   } else if (playNum >= 3) {
     playNum = 0;
   }
+  setActiveSong();
   playAudio();
 }
 
@@ -240,6 +252,7 @@ function playPrev() {
   } else if (playNum == 0) {
     playNum = 3;
   }
+  setActiveSong();
   playAudio();
 }
 
