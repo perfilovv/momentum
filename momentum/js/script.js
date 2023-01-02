@@ -174,8 +174,10 @@ getQuotes();
 
 const changeQuote = document.querySelector('.change-quote');
 changeQuote.addEventListener('click', getQuotes);
+let playNum = 0;
 
 const audio = new Audio();
+
 const play = document.querySelector('.play');
 const playPrevBtn = document.querySelector('.play-prev');
 const playNextBtn = document.querySelector('.play-next');
@@ -204,6 +206,7 @@ function playPause() {
 }
 
 function toggleBtn() {
+  setActiveSong();
   playPause();
   play.classList.toggle('pause');
 }
@@ -218,7 +221,7 @@ playlist.forEach((el) => {
   playlistContainer.append(li);
 });
 
-let playNum = 0;
+
 
 const playItem = document.querySelectorAll('.play-item');
 playItem.forEach((el, index) => el.setAttribute('id', index));
@@ -228,7 +231,6 @@ function setActiveSong() {
   playItem.forEach((el) => el.classList.remove('item-active'));
   currentSong.classList.add('item-active');
 }
-setActiveSong();
 
 
 function playNext() {

@@ -34,10 +34,47 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 120px;
+  gap: 10px;
   margin-bottom: 28px;
 }
 
+.player-timeline-progress {
+  display: flex;
+  gap: 10px;
+}
+.progress-bar {
+  width: 133px;
+}
+.player-time {
+  display: flex;
+}
+.current::after {
+  content: "/";
+  padding: 0 5px;
+}
+
+.player-volume {
+  display: flex;
+  gap: 10px;
+}
+
+.player-volume
+.player-icon {
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+}
+
+.player-volume-on {
+  background-image: url('../assets/svg/volume-on.svg');
+}
+
+.player-volume-off {
+  background-image: url('../assets/svg/volume-off.svg');
+}
+.player-volume-control {
+  width: 80px;
+}
 .play-list {
   text-align: left;
 }
