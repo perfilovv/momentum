@@ -17,6 +17,17 @@
         <button class="play-prev player-icon"></button>
         <button class="play player-icon"></button>
         <button class="play-next player-icon"></button>
+        <div class="player-timeline-progress">
+          <input type="range" min="0" max="100" value="0" class="progress-bar">
+          <div class="player-time">
+            <div class="current">0:00</div>
+            <div class="length">00:20</div>
+          </div>
+          <div class="player-volume">
+            <button class="player-volume-button player-icon player-volume-on"></button>
+            <input type="range" min="0" max="100" value="85" class="player-volume-control">
+          </div>
+        </div>
       </div>
       <ul class="play-list"></ul>
     </div>
