@@ -182,6 +182,8 @@ const play = document.querySelector('.play');
 const playPrevBtn = document.querySelector('.play-prev');
 const playNextBtn = document.querySelector('.play-next');
 let isPlay = false;
+const songTitle = document.querySelector('.song-title');
+
 
 audio.addEventListener('ended', playNext);
 
@@ -189,6 +191,7 @@ function playAudio() {
   audio.src = playlist[playNum].src;
   audio.currentTime = 0;
   audio.play();
+  songTitle.textContent = `${playNum + 1}. ${playlist[playNum].title}`;
 }
 
 function pauseAudio() {
@@ -261,3 +264,6 @@ function playPrev() {
 }
 
 playPrevBtn.addEventListener('click', playPrev);
+
+
+console.log(playNum);
