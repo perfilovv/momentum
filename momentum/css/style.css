@@ -48,10 +48,10 @@ body {
 .player-time {
   display: flex;
 }
-.current::after {
+/* .player-time-current::after {
   content: "/";
   padding: 0 5px;
-}
+} */
 
 .player-volume {
   display: flex;

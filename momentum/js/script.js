@@ -181,9 +181,34 @@ const audio = new Audio();
 const play = document.querySelector('.play');
 const playPrevBtn = document.querySelector('.play-prev');
 const playNextBtn = document.querySelector('.play-next');
-let isPlay = false;
 const songTitle = document.querySelector('.song-title');
+const songTitleNumber = () => songTitle.textContent = `${playNum + 1}. ${playlist[playNum].title}`;
+songTitleNumber();
+const playerTimeCurrent = document.querySelector('.player-time-current');
+playerTimeCurrent.textContent = '00:00 /\u00A0';
+const playerTimeLength = document.querySelector('.player-time-length');
+const playerTimeDuratation = () => playerTimeLength.textContent = `${playlist[playNum].duratation}`;
+playerTimeDuratation();
+let isPlay = false;
 
+
+function audioTimeTracker(currentTimeOfTrack, el) {
+  let minutes = Math.floor(currentTimeOfTrack / 60);
+  let seconds = currentTimeOfTrack % 60;
+
+  if (currentTimeOfTrack < 10) {
+    el.textContent = `00:0${seconds} /\u00A0`;
+  } else if (currentTimeOfTrack >= 10 && currentTimeOfTrack < 60) {
+    el.textContent = `00:${seconds} /\u00A0`;
+  } else if (currentTimeOfTrack >= 60) {
+    if (minutes < 10 && seconds < 10) {
+      el.textContent = `0${minutes}:0${seconds} /\u00A0`;
+    }
+    if (minutes < 10 && seconds >= 10) {
+      el.textContent = `0${minutes}:${seconds} /\u00A0`;
+    }
+  }
+}
 
 audio.addEventListener('ended', playNext);
 
@@ -191,7 +216,20 @@ function playAudio() {
   audio.src = playlist[playNum].src;
   audio.currentTime = 0;
   audio.play();
-  songTitle.textContent = `${playNum + 1}. ${playlist[playNum].title}`;
+  songTitleNumber();
+  playerTimeDuratation();
+  const audioPlayId = setInterval(() => {
+
+    let audioTime = Math.round(audio.currentTime);
+    audioTimeTracker(audioTime, playerTimeCurrent);
+    if (audioTime == playerTimeLength && playNum < playlist.length - 1) {
+      clearInterval(audioPlayId);
+      audio.currentTime = 0;
+    } else if (audioTime == playerTimeLength && playNum >= playlist.length - 1) {
+      clearInterval(audioPlayId);
+      audio.currentTime = 0;
+    }
+  }, 100);
 }
 
 function pauseAudio() {
@@ -213,10 +251,12 @@ function toggleBtn() {
   playPause();
   play.classList.toggle('pause');
 }
+
 play.addEventListener('click', toggleBtn);
 
 
 const playlistContainer = document.querySelector('.play-list');
+
 playlist.forEach((el) => {
   const li = document.createElement('li');
   li.classList.add('play-item');
@@ -225,9 +265,10 @@ playlist.forEach((el) => {
 });
 
 
-
 const playItem = document.querySelectorAll('.play-item');
+
 playItem.forEach((el, index) => el.setAttribute('id', index));
+
 
 function setActiveSong() {
   const currentSong = document.getElementById(`${playNum}`);
@@ -264,6 +305,3 @@ function playPrev() {
 }
 
 playPrevBtn.addEventListener('click', playPrev);
-
-
-console.log(playNum);
