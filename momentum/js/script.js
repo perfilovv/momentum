@@ -182,13 +182,13 @@ const play = document.querySelector('.play');
 const playPrevBtn = document.querySelector('.play-prev');
 const playNextBtn = document.querySelector('.play-next');
 const songTitle = document.querySelector('.song-title');
-const songTitleNumber = () => songTitle.textContent = `${playNum + 1}. ${playlist[playNum].title}`;
-songTitleNumber();
+songTitle.textContent = `${playNum + 1}. ${playlist[playNum].title}`;
 const playerTimeCurrent = document.querySelector('.player-time-current');
 playerTimeCurrent.textContent = '00:00 /\u00A0';
 const playerTimeLength = document.querySelector('.player-time-length');
-const playerTimeDuratation = () => playerTimeLength.textContent = `${playlist[playNum].duratation}`;
-playerTimeDuratation();
+playerTimeLength.textContent = `${playlist[playNum].duratation}`;
+const progressBar = document.querySelector('.progress-bar');
+let audioLength;
 let isPlay = false;
 
 
@@ -216,21 +216,28 @@ function playAudio() {
   audio.src = playlist[playNum].src;
   audio.currentTime = 0;
   audio.play();
-  songTitleNumber();
-  playerTimeDuratation();
-  const audioPlayId = setInterval(() => {
-
+  songTitle.textContent = `${playNum + 1}. ${playlist[playNum].title}`;
+  playerTimeLength.textContent = `${playlist[playNum].duratation}`;
+  setInterval(() => {
     let audioTime = Math.round(audio.currentTime);
+    audioLength = Math.round(audio.duration);
     audioTimeTracker(audioTime, playerTimeCurrent);
-    if (audioTime == playerTimeLength && playNum < playlist.length - 1) {
-      clearInterval(audioPlayId);
-      audio.currentTime = 0;
-    } else if (audioTime == playerTimeLength && playNum >= playlist.length - 1) {
-      clearInterval(audioPlayId);
-      audio.currentTime = 0;
-    }
+    progressBar.value = (audioTime * 100) / audioLength;
   }, 100);
 }
+
+function progressBarChange(changeValue) {
+  if (isPlay == true) {
+    audio.currentTime = Math.round(audioLength * changeValue / 100);
+  } else {
+    audio.currentTime = 0;
+  }
+}
+
+progressBar.addEventListener('input', function () {
+  progressBarChange(this.value);
+});
+
 
 function pauseAudio() {
   audio.pause();
@@ -275,7 +282,7 @@ function setActiveSong() {
   playItem.forEach((el) => el.classList.remove('item-active'));
   currentSong.classList.add('item-active');
 }
-
+setActiveSong();
 
 function playNext() {
   isPlay = true;
