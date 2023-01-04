@@ -182,11 +182,13 @@ const play = document.querySelector('.play');
 const playPrevBtn = document.querySelector('.play-prev');
 const playNextBtn = document.querySelector('.play-next');
 const songTitle = document.querySelector('.song-title');
-songTitle.textContent = `${playNum + 1}. ${playlist[playNum].title}`;
+const songTitleNumber = () => songTitle.textContent = `${playNum + 1}. ${playlist[playNum].title}`;
+songTitleNumber();
 const playerTimeCurrent = document.querySelector('.player-time-current');
 playerTimeCurrent.textContent = '00:00 /\u00A0';
 const playerTimeLength = document.querySelector('.player-time-length');
-playerTimeLength.textContent = `${playlist[playNum].duratation}`;
+const playerTimeDuratation = () => playerTimeLength.textContent = `${playlist[playNum].duratation}`;
+playerTimeDuratation();
 const progressBar = document.querySelector('.progress-bar');
 let audioLength;
 let isPlay = false;
@@ -216,8 +218,8 @@ function playAudio() {
   audio.src = playlist[playNum].src;
   audio.currentTime = 0;
   audio.play();
-  songTitle.textContent = `${playNum + 1}. ${playlist[playNum].title}`;
-  playerTimeLength.textContent = `${playlist[playNum].duratation}`;
+  songTitleNumber();
+  playerTimeDuratation();
   setInterval(() => {
     let audioTime = Math.round(audio.currentTime);
     audioLength = Math.round(audio.duration);
