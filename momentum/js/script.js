@@ -339,3 +339,14 @@ function toggleVolume() {
 }
 
 playerVolumeButton.addEventListener('click', toggleVolume);
+
+
+const playerVolumeControl = document.querySelector('.player-volume-control');
+
+function changeAudioVolume(valueOfVolume) {
+  audio.volume = valueOfVolume / 100;
+}
+
+playerVolumeControl.addEventListener('input', function () {
+  changeAudioVolume(this.value);
+});
