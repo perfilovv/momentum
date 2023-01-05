@@ -314,3 +314,28 @@ function playPrev() {
 }
 
 playPrevBtn.addEventListener('click', playPrev);
+
+const playerVolumeButton = document.querySelector('.player-volume-button');
+const volumeOnAdd = () => playerVolumeButton.classList.add('player-volume-on');
+const volumeOnRemove = () => playerVolumeButton.classList.remove('player-volume-on');
+const volumeOffAdd = () => playerVolumeButton.classList.add('player-volume-off');
+const volumeOffRemove = () => playerVolumeButton.classList.remove('player-volume-off');
+let isVolume = true;
+
+function toggleVolume() {
+  if (isVolume == true) {
+    isVolume = false;
+    volumeOnRemove();
+    volumeOffAdd();
+    audio.volume = 0;
+  } else {
+    if (isVolume == false) {
+      isVolume = true;
+      volumeOffRemove();
+      volumeOnAdd();
+      audio.volume = 0.85;
+    }
+  }
+}
+
+playerVolumeButton.addEventListener('click', toggleVolume);
