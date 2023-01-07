@@ -278,6 +278,21 @@ const playItem = document.querySelectorAll('.play-item');
 
 playItem.forEach((el, index) => el.setAttribute('id', index));
 
+playItem.forEach((el, index) => el.addEventListener('click', function () {
+  playNum = index;
+
+  if (el.classList.contains('item-active')) {
+    isPlay = false;
+    play.classList.remove('pause');
+    audio.pause();
+    playItem.forEach((el) => el.classList.remove('item-active'));
+  } else {
+    isPlay = true;
+    play.classList.add('pause');
+    setActiveSong();
+    playAudio();
+  }
+}));
 
 function setActiveSong() {
   const currentSong = document.getElementById(`${playNum}`);
