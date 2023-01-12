@@ -177,6 +177,7 @@ changeQuote.addEventListener('click', getQuotes);
 let playNum = 0;
 
 const audio = new Audio();
+audio.src = playlist[playNum].src;
 
 const play = document.querySelector('.play');
 const playPrevBtn = document.querySelector('.play-prev');
@@ -215,8 +216,6 @@ function audioTimeTracker(currentTimeOfTrack, el) {
 audio.addEventListener('ended', playNext);
 
 function playAudio() {
-  audio.src = playlist[playNum].src;
-  audio.currentTime = 0;
   audio.play();
   songTitleNumber();
   playerTimeDuratation();
@@ -227,6 +226,7 @@ function playAudio() {
     progressBar.value = (audioTime * 100) / audioLength;
   }, 100);
 }
+
 
 function progressBarChange(changeValue) {
   if (isPlay == true) {
@@ -273,7 +273,6 @@ playlist.forEach((el) => {
   playlistContainer.append(li);
 });
 
-
 const playItem = document.querySelectorAll('.play-item');
 
 playItem.forEach((el, index) => el.setAttribute('id', index));
@@ -281,18 +280,23 @@ playItem.forEach((el, index) => el.setAttribute('id', index));
 playItem.forEach((el, index) => el.addEventListener('click', function () {
   playNum = index;
 
-  if (el.classList.contains('item-active')) {
+  if (el.classList.contains('item-active') && isPlay == true) {
     isPlay = false;
+    pauseAudio();
     play.classList.remove('pause');
-    audio.pause();
-    playItem.forEach((el) => el.classList.remove('item-active'));
+  } else if (el.classList.contains('item-active') && audio.paused) {
+    isPlay = true;
+    playAudio();
+    play.classList.add('pause');
   } else {
     isPlay = true;
-    play.classList.add('pause');
+    audio.src = playlist[playNum].src;
     setActiveSong();
     playAudio();
+    play.classList.add('pause');
   }
 }));
+
 
 function setActiveSong() {
   const currentSong = document.getElementById(`${playNum}`);
@@ -300,6 +304,7 @@ function setActiveSong() {
   currentSong.classList.add('item-active');
 }
 setActiveSong();
+
 
 function playNext() {
   isPlay = true;
@@ -309,6 +314,7 @@ function playNext() {
   } else if (playNum >= 3) {
     playNum = 0;
   }
+  audio.src = playlist[playNum].src;
   setActiveSong();
   playAudio();
 }
@@ -324,6 +330,7 @@ function playPrev() {
   } else if (playNum == 0) {
     playNum = 3;
   }
+  audio.src = playlist[playNum].src;
   setActiveSong();
   playAudio();
 }
