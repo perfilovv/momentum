@@ -278,9 +278,9 @@ body {
 
 .footer {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
   width: 100%;
   height: 30vh;
   min-height: 160px;  
@@ -299,7 +299,80 @@ body {
 .author {
   min-height: 20px;
 }
+.settings-wrapper {
+  display: flex;
+}
+.settings-button {
+  background-image: url('../assets/svg/settings.svg');
+  background-color:transparent;
+  border: 0;
+  opacity: 0.8;
+  width: 30px;
+  height: 30px;
+  z-index: 10;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.settings-button-active {
+  opacity: 1;
+  transform:rotate(45deg);
+}
+.settings {
+  position:fixed;
+  width: 300px;
+  height: 300px;
+  background:#fff;
+  bottom: 5%;
+  left:0;
+  z-index: 10;
+  transform: translateX(-100%);
+  transition: all 0.5s ease-in;
+  border-radius: 5px;
+  padding: 30px;
+}
 
+.settings-active {
+  transform: translateX(2%);
+  right:calc(100% + 300px); 
+}
+
+.settings-list-li {
+  display: flex;
+  color: black;
+}
+
+ul {
+list-style-type: none;
+}
+
+.settings-close {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  z-index: 11;
+  right: 2%;
+  top: 2%;
+  cursor: pointer;
+}
+
+.settings-close-line {
+  display:block;
+  position: absolute;
+  height: 2px;
+  width:64.1%;
+  background-color: black;
+  top: 50%;
+}
+
+.settings-close-line:first-child {
+transform: translateY(-50%) rotate(45deg);
+}
+
+.settings-close-line:last-child {
+transform: translateY(-50%) rotate(-45deg);
+}
 @media (max-width: 768px) {
   .time {
     min-height: 80px;

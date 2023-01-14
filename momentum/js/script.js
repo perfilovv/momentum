@@ -36,7 +36,7 @@ function getTimeOfDay() {
 }
 getTimeOfDay();
 
-function showGreeting() {
+function showGreeting(lang = 'en') {
   const greeting = document.querySelector('.greeting');
   const timeOfDay = getTimeOfDay();
   const greetingText = `Good ${timeOfDay}`;
@@ -371,4 +371,49 @@ function changeAudioVolume(valueOfVolume) {
 
 playerVolumeControl.addEventListener('input', function () {
   changeAudioVolume(this.value);
+});
+
+const greetingTranslation = {
+  'ru': [
+    ['Доброе утро', 'Добрый день', 'Добрый вечер', 'Доброй ночи'],
+    ['[Введите имя]']
+  ],
+  'en': [
+    ['Good morning', 'Good afternoon', 'Good evening', 'Good night'],
+    ['[Enter name]']
+  ]
+};
+
+// const greeting = document.querySelector('.greeting');
+// greeting.textContent = `${greetingTranslation[lang][0][index]}`;
+
+const settingsButton = document.querySelector('.settings-button');
+const settingsButtonAdd = () => settingsButton.classList.add('settings-button-active');
+const settingsButtonRemove = () => settingsButton.classList.remove('settings-button-active');
+const settings = document.querySelector('.settings');
+const settingsAdd = () => settings.classList.add('settings-active');
+const settingsRemove = () => settings.classList.remove('settings-active');
+const settingsClose = document.querySelector('.settings-close');
+
+
+settingsButton.addEventListener('click', () => {
+  if (settings.classList.contains('settings-active')) {
+    settingsButtonRemove();
+    settingsRemove();
+  } else {
+    settingsButtonAdd();
+    settingsAdd();
+  }
+});
+
+settingsClose.addEventListener('click', () => {
+  settingsButtonRemove();
+  settingsRemove();
+});
+
+window.addEventListener('click', (e) => {
+  if (!e.target.closest('.settings') && !e.target.closest('.settings-button')) {
+    settingsButtonRemove();
+    settingsRemove();
+  }
 });
