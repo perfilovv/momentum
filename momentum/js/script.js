@@ -1,5 +1,18 @@
 import playlist from "./playlist.js";
 
+const greetingTranslation = {
+  'ru': [
+    ['Доброе утро', 'Добрый день', 'Добрый вечер', 'Доброй ночи'],
+    ['[Введите имя]']
+  ],
+  'en': [
+    ['Good morning', 'Good afternoon', 'Good evening', 'Good night'],
+    ['[Enter name]']
+  ]
+};
+const index = ['night', 'morning', 'afternoon', 'evening'].indexOf(getTimeOfDay());
+
+
 function showTime() {
   const time = document.querySelector('.time');
   const date = new Date();
@@ -36,11 +49,14 @@ function getTimeOfDay() {
 }
 getTimeOfDay();
 
+
 function showGreeting(lang = 'en') {
   const greeting = document.querySelector('.greeting');
   const timeOfDay = getTimeOfDay();
   const greetingText = `Good ${timeOfDay}`;
-  greeting.textContent = greetingText;
+  // greeting.textContent = greetingText;
+  greeting.textContent = `${greetingTranslation[lang][0][index]}`;
+  console.log(`${greetingTranslation[lang][0][index]}`);
 }
 showGreeting();
 
@@ -373,19 +389,7 @@ playerVolumeControl.addEventListener('input', function () {
   changeAudioVolume(this.value);
 });
 
-const greetingTranslation = {
-  'ru': [
-    ['Доброе утро', 'Добрый день', 'Добрый вечер', 'Доброй ночи'],
-    ['[Введите имя]']
-  ],
-  'en': [
-    ['Good morning', 'Good afternoon', 'Good evening', 'Good night'],
-    ['[Enter name]']
-  ]
-};
 
-// const greeting = document.querySelector('.greeting');
-// greeting.textContent = `${greetingTranslation[lang][0][index]}`;
 
 const settingsButton = document.querySelector('.settings-button');
 const settingsButtonAdd = () => settingsButton.classList.add('settings-button-active');
@@ -394,6 +398,7 @@ const settings = document.querySelector('.settings');
 const settingsAdd = () => settings.classList.add('settings-active');
 const settingsRemove = () => settings.classList.remove('settings-active');
 const settingsClose = document.querySelector('.settings-close');
+const toggleSlider = document.querySelectorAll('.toggle-slider');
 
 
 settingsButton.addEventListener('click', () => {
@@ -417,3 +422,27 @@ window.addEventListener('click', (e) => {
     settingsRemove();
   }
 });
+
+toggleSlider.forEach((el) => el.addEventListener('click', () => {
+  const toggleOnAdd = () => el.classList.add('has-toggle-on');
+  const toggleOnRemove = () => el.classList.remove('has-toggle-on');
+  const toggleOffAdd = () => el.classList.add('has-toggle-off');
+  const toggleOffRemove = () => el.classList.remove('has-toggle-off');
+  if (el.classList.contains('has-toggle-on')) {
+    toggleOnRemove();
+    toggleOffAdd();
+  } else {
+    toggleOffRemove();
+    toggleOnAdd();
+  }
+}));
+
+const languageButton = document.querySelectorAll('.language-button');
+
+languageButton.forEach((el) => el.addEventListener('click', () => {
+  const languageActiveRemove = () => languageButton.forEach((el) => el.classList.remove('language-button-active'));
+  const languageActiveAdd = () => el.classList.add('language-button-active');
+  languageActiveRemove();
+  languageActiveAdd();
+}));
+

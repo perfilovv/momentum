@@ -328,7 +328,8 @@ body {
   transform: translateX(-100%);
   transition: all 0.5s ease-in;
   border-radius: 5px;
-  padding: 30px;
+  padding: 40px 20px 20px 20px;
+  opacity: .9;
 }
 
 .settings-active {
@@ -336,9 +337,35 @@ body {
   right:calc(100% + 300px); 
 }
 
+.settings {
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(187, 187, 187);
+  border-radius: 10px;
+}
+.settings-list li {
+  padding: 10px;
+  border-bottom: 1px solid gainsboro;
+}
+
+.settings-list li:last-child {
+  border-bottom: none;
+}
 .settings-list-li {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   color: black;
+}
+
+.settings-list-li input[type=checkbox] {
+display: none;
 }
 
 ul {
@@ -372,6 +399,79 @@ transform: translateY(-50%) rotate(45deg);
 
 .settings-close-line:last-child {
 transform: translateY(-50%) rotate(-45deg);
+}
+
+.toggle-switch {
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+}
+
+.toggle-switch-active {
+  position: relative;
+  left: 60%;
+}
+.toggle-switch circle {
+  fill: #fff;
+  transition: all 2s ease;
+}
+
+.toggle-slider {
+  display: flex;
+  align-items: center;
+  width: 33px;
+  height: 18px;
+  padding: 0px 2px;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-right: 14px;
+}
+
+.has-toggle-on {
+  justify-content: flex-end;
+  background: #4cbf3f;
+  opacity: 1;
+  
+}
+
+.has-toggle-on:hover {
+  background: #7edc74;
+}
+
+.has-toggle-off {
+  justify-content: flex-start;
+  background: rgb(187, 187, 187);
+  opacity: .7;
+}
+
+.has-toggle-off:hover {
+  background: hsl(0deg 0% 13% / 50%);
+}
+
+.language-wrapper {
+  display: flex;
+}
+.language-button {
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  width: 30px;
+  height: 25px;
+  border: none;
+  border-radius: 5px;
+  background: rgb(187, 187, 187);
+  opacity: .7;
+  color: #fff;
+  cursor:pointer;
+}
+.language-button:hover {
+  background: hsl(0deg 0% 13% / 50%)
+}
+.language-button-active {
+  background:#4cbf3f;
+}
+.language-button-active:hover {
+  background:#7edc74;
 }
 @media (max-width: 768px) {
   .time {
