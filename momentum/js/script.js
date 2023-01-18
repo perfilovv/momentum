@@ -10,8 +10,17 @@ const greetingTranslation = {
     ['[Enter name]']
   ]
 };
-const index = ['night', 'morning', 'afternoon', 'evening'].indexOf(getTimeOfDay());
+const weatherTranslation = {
+  'ru': [
+    ['Скорость ветра:', 'м/с', 'Влажность:', 'Ошибка! Введите город', 'Ошибка, город не найден']
+  ],
+  'en': [
+    ['Wind speed:', 'm/s', 'Humidity:', 'Error! Nothing to geocode for!', 'Error! city not found for']
+  ]
+};
 
+const quotesJson = { 'en': ['../assets/quotes.json'], 'ru': ['../assets/quotes-ru.json'] };
+let lang = 'en';
 
 function showTime() {
   const time = document.querySelector('.time');
@@ -20,7 +29,7 @@ function showTime() {
   time.textContent = currentTime;
 
   showDate();
-  showGreeting();
+  showGreeting(lang);
   setTimeout(showTime, 1000);
 }
 showTime();
@@ -29,7 +38,7 @@ function showDate() {
   const data = document.querySelector('.date');
   const date = new Date();
   const options = { weekday: 'long', month: 'long', day: 'numeric' };
-  const currentDate = date.toLocaleDateString('en-US', options);
+  const currentDate = date.toLocaleDateString(lang, options);
   data.textContent = currentDate;
 }
 showDate();
@@ -52,11 +61,8 @@ getTimeOfDay();
 
 function showGreeting(lang = 'en') {
   const greeting = document.querySelector('.greeting');
-  const timeOfDay = getTimeOfDay();
-  const greetingText = `Good ${timeOfDay}`;
-  // greeting.textContent = greetingText;
+  const index = ['morning', 'afternoon', 'evening', 'night'].indexOf(getTimeOfDay());
   greeting.textContent = `${greetingTranslation[lang][0][index]}`;
-  console.log(`${greetingTranslation[lang][0][index]}`);
 }
 showGreeting();
 
@@ -134,25 +140,25 @@ const weatherIcon = document.querySelector('.weather-icon');
 const temperature = document.querySelector('.temperature');
 const weatherDescription = document.querySelector('.weather-description');
 const city = document.querySelector('.city');
+if (city.value == '') {
+  city.placeholder = '[Enter city]';
+}
 const wind = document.querySelector('.wind');
 const humidity = document.querySelector('.humidity');
 const weatherError = document.querySelector('.weather-error');
 
 async function getWeather() {
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=df03f79709a93dd0dbb3c45d94366c54&units=metric`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=${lang}&appid=df03f79709a93dd0dbb3c45d94366c54&units=metric`;
   const res = await fetch(url);
   const data = await res.json();
 
   try {
-    if (city.value == '') {
-      city.placeholder = '[Enter city]';
-    }
     weatherIcon.className = 'weather-icon owf';
     weatherIcon.classList.add(`owf-${data.weather[0].id}`);
     temperature.textContent = `${data.main.temp.toFixed(0)}°C`;
     weatherDescription.textContent = data.weather[0].description;
-    wind.textContent = `Wind speed: ${data.wind.speed} m/c`;
-    humidity.textContent = `Humidity: ${data.main.humidity}%`;
+    wind.textContent = `${weatherTranslation[lang][0][0]} ${Math.floor(data.wind.speed)} ${weatherTranslation[lang][0][1]}`;
+    humidity.textContent = `${weatherTranslation[lang][0][2]} ${data.main.humidity}%`;
     weatherError.textContent = '';
   } catch {
     weatherIcon.textContent = '';
@@ -161,9 +167,10 @@ async function getWeather() {
     wind.textContent = '';
     humidity.textContent = '';
     if (data.cod == 400) {
-      weatherError.textContent = 'Error! Nothing to geocode for!';
+      weatherError.textContent = `${weatherTranslation[lang][0][3]}`;
     } else if (data.cod == 404) {
-      weatherError.textContent = `Error! city not found for '${city.value}'`;
+      weatherError.textContent = `${weatherTranslation[lang][0][4]} ${city.value}`;
+      console.log(`${weatherTranslation[lang][0][4]}`);
     }
   }
 }
@@ -177,7 +184,7 @@ city.addEventListener('change', setCity);
 
 
 async function getQuotes() {
-  const quotes = '../assets/quotes.json';
+  const quotes = `${quotesJson[lang][0]}`;
   const res = await fetch(quotes);
   const data = await res.json();
   const quote = document.querySelector('.quote');
@@ -390,7 +397,6 @@ playerVolumeControl.addEventListener('input', function () {
 });
 
 
-
 const settingsButton = document.querySelector('.settings-button');
 const settingsButtonAdd = () => settingsButton.classList.add('settings-button-active');
 const settingsButtonRemove = () => settingsButton.classList.remove('settings-button-active');
@@ -438,11 +444,65 @@ toggleSlider.forEach((el) => el.addEventListener('click', () => {
 }));
 
 const languageButton = document.querySelectorAll('.language-button');
+const name = document.querySelector('.name');
+const settingName = document.querySelectorAll('.setting-name');
+const translateLanguageRu = () => {
+  lang = 'ru';
+  showGreeting(lang);
+  name.placeholder = '[Введите имя]';
+  city.placeholder = '[Введите город]';
+
+  if (city.value === 'Minsk') {
+    city.value = 'Минск';
+  }
+
+  getWeather(lang);
+  showDate(lang);
+  getQuotes(lang);
+  settingName[0].textContent = 'Изменить язык';
+  settingName[1].textContent = 'Время';
+  settingName[2].textContent = 'Дата';
+  settingName[3].textContent = 'Приветствие';
+  settingName[4].textContent = 'Цитаты';
+  settingName[5].textContent = 'Аудио плеер';
+  settingName[6].textContent = 'Погода';
+  settingName[7].textContent = 'Фоновое изображение';
+};
+
+const translateLanguageEn = () => {
+  lang = 'en';
+  showGreeting(lang);
+  name.placeholder = '[Enter name]';
+  city.placeholder = '[Enter city]';
+
+  if (city.value === 'Минск') {
+    city.value = 'Minsk';
+  }
+
+  getWeather(lang);
+  showDate(lang);
+  getQuotes(lang);
+  settingName[0].textContent = 'Change language';
+  settingName[1].textContent = 'Time';
+  settingName[2].textContent = 'Date';
+  settingName[3].textContent = 'Greeting';
+  settingName[4].textContent = 'Quotes';
+  settingName[5].textContent = 'Audio player';
+  settingName[6].textContent = 'Weather';
+  settingName[7].textContent = 'Background';
+};
 
 languageButton.forEach((el) => el.addEventListener('click', () => {
+
   const languageActiveRemove = () => languageButton.forEach((el) => el.classList.remove('language-button-active'));
   const languageActiveAdd = () => el.classList.add('language-button-active');
   languageActiveRemove();
   languageActiveAdd();
+
+  if (el.textContent === 'RU') {
+    translateLanguageRu();
+  } else {
+    translateLanguageEn();
+  }
 }));
 
