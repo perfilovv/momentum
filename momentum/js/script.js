@@ -107,8 +107,16 @@ function setBg() {
 }
 setBg();
 
-let slideNext = document.querySelector('.slide-next');
-slideNext.addEventListener('click', getSlideNext);
+const slideNext = document.querySelector('.slide-next');
+slideNext.addEventListener('click', () => {
+  if (unsplash.selected) {
+    getLinkToImageUnsplash();
+  } else if (flickr.selected) {
+    getLinkToImageFlickr();
+  } else {
+    getSlideNext();
+  }
+});
 
 function getSlideNext() {
   randomNum++;
@@ -121,9 +129,16 @@ function getSlideNext() {
   }
 }
 
-
 const slidePrev = document.querySelector('.slide-prev');
-slidePrev.addEventListener('click', getSlidePrev);
+slidePrev.addEventListener('click', () => {
+  if (unsplash.selected) {
+    getLinkToImageUnsplash();
+  } else if (flickr.selected) {
+    getLinkToImageFlickr();
+  } else {
+    getSlidePrev();
+  }
+});
 
 function getSlidePrev() {
   randomNum--;
@@ -505,4 +520,46 @@ languageButton.forEach((el) => el.addEventListener('click', () => {
     translateLanguageEn();
   }
 }));
+
+async function getLinkToImageUnsplash() {
+  const url = 'https://api.unsplash.com/photos/random?orientation=landscape&query=nature&client_id=gnCgwDcRPu-bAMgzvp52Lm7p-xLHPP89lY8B8YwKN7I';
+  const res = await fetch(url);
+  const data = await res.json();
+  const img = new Image();
+  img.src = data.urls.regular;
+  const backgroundUnsplash = img.src;
+  img.onload = () => {
+    document.body.style.backgroundImage = `url(${backgroundUnsplash})`;
+  };
+}
+
+async function getLinkToImageFlickr() {
+  const url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=89227889b4c0daea409061b494f237c1&tags=nature&extras=url_l&format=json&nojsoncallback=1';
+  const res = await fetch(url);
+  const data = await res.json();
+  const img = new Image();
+  let min = Math.ceil(1);
+  let max = Math.floor(20);
+  let randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+  img.src = `${data.photos.photo[randomNum].url_l}`;
+  const backgroundFlickr = img.src;
+  img.onload = () => {
+    document.body.style.backgroundImage = `url(${backgroundFlickr})`;
+  };
+}
+
+const select = document.querySelector('.select');
+const unsplash = document.querySelector('.unsplash');
+const flickr = document.querySelector('.flickr');
+
+select.addEventListener('change', () => {
+  if (unsplash.selected) {
+    getLinkToImageUnsplash();
+  } else if (flickr.selected) {
+    getLinkToImageFlickr();
+  } else {
+    setBg();
+  }
+});
+
 
