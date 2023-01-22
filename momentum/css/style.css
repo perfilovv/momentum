@@ -364,10 +364,6 @@ body {
   color: black;
 }
 
-.settings-list-li input[type=checkbox] {
-display: none;
-}
-
 ul {
 list-style-type: none;
 }
@@ -482,6 +478,20 @@ transform: translateY(-50%) rotate(-45deg);
   border-radius: 30px;
   background: rgba(255, 255, 255, 0.5);
   cursor: pointer;
+}
+
+.hidden {
+  opacity: 0%;
+}
+
+.time, 
+.date,
+.greeting, 
+.quote-wrapper,
+.name, 
+.weather,
+.player {
+  transition: .3s ease;
 }
 
 
