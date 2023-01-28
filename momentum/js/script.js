@@ -514,7 +514,7 @@ settingsClose.addEventListener('click', () => {
 });
 
 window.addEventListener('click', (e) => {
-  if (!e.target.closest('.settings') && !e.target.closest('.settings-button')) {
+  if (!e.target.closest('.settings') && !e.target.closest('.settings-button') && !e.target.closest('.todo-button')) {
     settingsButtonRemove();
     settingsRemove();
   }
@@ -535,6 +535,8 @@ toggleSlider.forEach((el) => el.addEventListener('click', () => {
 }));
 
 const languageButton = document.querySelectorAll('.language-button');
+const langRu = document.querySelector('.lang-ru');
+const langEn = document.querySelector('.lang-en');
 const name = document.querySelector('.name');
 const settingName = document.querySelectorAll('.setting-name');
 
@@ -640,3 +642,37 @@ select.addEventListener('change', () => {
 });
 
 
+const todoButton = document.querySelector('.todo-button');
+const todoMove = document.querySelector('.todo-move');
+const todoActiveAdd = () => todoMove.classList.add('todo-active');
+const todoActiveRemove = () => todoMove.classList.remove('todo-active');
+const closeTodo = document.querySelector('.close-todo');
+
+closeTodo.addEventListener('click', () => {
+  if (closeTodo.classList.contains('close-todo')) {
+    todoActiveRemove();
+  }
+});
+
+window.addEventListener('click', (e) => {
+  if (!e.target.closest('.todo-move') && !e.target.closest('.todo-button') && !e.target.closest('.settings-button')) {
+    todoActiveRemove();
+  }
+});
+
+const clickTodo = () => {
+  if (todoMove.classList.contains('todo-active')) {
+    todoActiveRemove();
+  } else {
+    todoActiveAdd();
+  }
+};
+todoButton.addEventListener('click', clickTodo);
+
+const inputTask = document.querySelector('.input-task');
+const inputButton = document.querySelector('.input-button');
+const taskList = document.querySelector('.task-list');
+let saveTasks = {
+  tasks: [],
+  state: []
+};

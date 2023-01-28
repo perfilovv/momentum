@@ -67,8 +67,8 @@
           <li class="settings-list-li">
             <span class="setting-name">Change language</span>
             <div class="language-wrapper">
-              <button class="language-button">RU</button>
-              <button class="language-button language-button-active">EN</button>
+              <button class="language-button lang-ru">RU</button>
+              <button class="language-button lang-en language-button-active">EN</button>
             </div>
           </li>
           <li class="settings-list-li">
@@ -141,8 +141,31 @@
         <div class="author"></div>
       </div>
     </div>
-    <div class="social-wrapper"></div>
-
+    <!-- <div class="social-wrapper"></div> -->
+    <div class="todo-wrapper">
+      <span class="todo-button">TODO</span>
+      <div class="todo-move">
+        <div class="todo-section">
+          <div class="task-list">
+            <div class="task-item">
+              <div class="task-check">
+                <input type="checkbox" class="task-checkbox">
+                <p class="task-value" contenteditable="false" spellcheck="false"></p>
+              </div>
+              <div class="delete-task"></div>
+            </div>
+          </div>
+          <div class="input-wrapper">
+            <input type="text" placeholder="New task" class="input-task">
+            <button class="input-button">Add</button>
+          </div>
+        </div>
+        <div class="settings-close close-todo">
+          <span class="settings-close-line"></span>
+          <span class="settings-close-line"></span>
+        </div>
+      </div>
+    </div>
   </footer>
   <script type="module" src="js/script.js"></script>
 </body>

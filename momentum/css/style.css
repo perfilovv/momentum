@@ -427,7 +427,6 @@ transform: translateY(-50%) rotate(-45deg);
   justify-content: flex-end;
   background: #4cbf3f;
   opacity: 1;
-  
 }
 
 .has-toggle-on:hover {
@@ -494,6 +493,64 @@ transform: translateY(-50%) rotate(-45deg);
   transition: .3s ease;
 }
 
+.todo-button {
+  background-color: transparent;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.todo-move {
+  display: flex;
+  position: fixed;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 10px;
+  width: 275px;
+  height: 75px;
+  max-height: 80vh;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 5px;
+  transform: translateX(295px);
+  transition: all 0.5s ease-in;
+  right: 0;
+  bottom: 5%;
+  z-index: 10;
+}
+
+.todo-active {
+  transform: translateX(-5px);
+  transition: all 0.5s ease-in;
+}
+
+.todo-section {
+
+}
+.task-list {
+}
+
+.input-wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.input-task {
+  max-width: 165px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 5px;
+}
+
+.input-button {
+  background: #4cbf3f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  width: 60px;
+  height: 25px;
+}
 
 @media (max-width: 768px) {
   .time {
