@@ -655,7 +655,7 @@ closeTodo.addEventListener('click', () => {
 });
 
 window.addEventListener('click', (e) => {
-  if (!e.target.closest('.todo-move') && !e.target.closest('.todo-button') && !e.target.closest('.settings-button')) {
+  if (!e.target.closest('.todo-move') && !e.target.closest('.todo-button') && !e.target.closest('.settings-button') && !e.target.closest('.delete-task')) {
     todoActiveRemove();
   }
 });
@@ -676,3 +676,134 @@ let saveTasks = {
   tasks: [],
   state: []
 };
+
+const addTask = (value) => {
+  const newTaskItem = document.createElement('div');
+  newTaskItem.classList.add('task-item');
+  const newTaskCheck = document.createElement('div');
+  newTaskCheck.classList.add('task-check');
+  const newTaskCheckbox = document.createElement('input');
+  newTaskCheckbox.type = "checkbox";
+  newTaskCheckbox.classList.add('task-checkbox');
+  newTaskCheck.appendChild(newTaskCheckbox);
+  const newTaskValue = document.createElement('p');
+  newTaskValue.classList.add('task-value');
+  newTaskValue.textContent = `${value}`;
+  newTaskValue.setAttribute('contenteditable', false);
+  newTaskValue.setAttribute('spellcheck', false);
+  newTaskCheck.appendChild(newTaskValue);
+  newTaskItem.appendChild(newTaskCheck);
+  const newDeleteTask = document.createElement('div');
+  newDeleteTask.classList.add('delete-task');
+  newTaskItem.appendChild(newDeleteTask);
+  taskList.appendChild(newTaskItem);
+};
+
+inputButton.addEventListener('click', () => {
+  if (inputTask.value.trim()) {
+    addTask(inputTask.value);
+    inputTask.value = '';
+    inputButton.classList.remove('input-button-active');
+  }
+});
+
+inputTask.addEventListener('keydown', () => {
+  if (inputTask.value.trim() !== 0) {
+    inputButton.classList.add('input-button-active');
+  } else {
+    inputButton.classList.remove('input-button-active');
+  }
+});
+
+inputTask.addEventListener('change', () => {
+  if (inputTask.value.trim()) {
+    addTask(inputTask.value);
+    inputTask.value = '';
+    inputButton.classList.remove('input-button-active');
+  } else {
+    inputTask.value = '';
+    inputButton.classList.remove('input-button-active');
+  }
+});
+
+inputTask.addEventListener('blur', () => {
+  if (!inputTask.value.trim()) {
+    inputButton.classList.remove('input-button-active');
+  }
+});
+
+taskList.addEventListener('click', (e) => {
+  if (e.target.classList.contains('delete-task')) {
+    e.target.parentElement.remove();
+  }
+});
+
+
+taskList.addEventListener('click', (e) => {
+  if (e.target.classList.contains('task-checkbox') && e.target.checked === true) {
+    e.target.parentElement.classList.add('finished');
+  } else if (e.target.classList.contains('task-checkbox') && e.target.checked === false) {
+    e.target.parentElement.classList.remove('finished');
+  }
+});
+
+window.addEventListener('click', (e) => {
+  if (e.target.classList.contains('task-value')) {
+    e.target.setAttribute('contenteditable', true);
+  } else {
+    const tasksValues = document.querySelectorAll('.task-value');
+    tasksValues.forEach((el) => {
+      if (el.textContent.trim()) {
+        el.setAttribute('contenteditable', false);
+      } else {
+        el.parentElement.parentElement.remove();
+      }
+    });
+  }
+});
+
+window.addEventListener('keydown', (e) => {
+  if (e.target.classList.contains('task-value') && e.key === 'Enter') {
+    if (e.target.textContent.trim()) {
+      e.target.setAttribute('contenteditable', false);
+    } else {
+      e.target.parentElement.parentElement.remove();
+    }
+  }
+});
+
+const setTasksLocalStorage = () => {
+  const taskValues = document.querySelectorAll('.task-value');
+  const taskStates = document.querySelectorAll('.task-checkbox');
+  taskValues.forEach(el => {
+    saveTasks.tasks.push(el.textContent);
+  });
+  taskStates.forEach(el => {
+    if (el.checked === true) {
+      saveTasks.state.push(true);
+    } else {
+      saveTasks.state.push(false);
+    }
+  });
+  localStorage.setItem('tasks', JSON.stringify(saveTasks));
+};
+
+const getTasksLocalStorage = () => {
+  const taskValues = JSON.parse(localStorage.getItem('tasks'));
+  if (taskValues) {
+    taskValues.tasks.forEach(el => {
+      addTask(el);
+    });
+    const taskStates = document.querySelectorAll('.task-checkbox');
+    taskValues.state.forEach((el, i) => {
+      if (el) {
+        taskStates[i].checked = true;
+        taskStates[i].parentElement.classList.add('finished');
+      }
+    });
+  }
+};
+
+getTasksLocalStorage();
+
+window.addEventListener('beforeunload', setTasksLocalStorage);

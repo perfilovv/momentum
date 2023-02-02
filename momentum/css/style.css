@@ -372,8 +372,8 @@ list-style-type: none;
   display: flex;
   position: absolute;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   z-index: 11;
   right: 2%;
   top: 2%;
@@ -499,14 +499,13 @@ transform: translateY(-50%) rotate(-45deg);
   transition: all 0.3s ease;
   cursor: pointer;
 }
+
 .todo-move {
   display: flex;
   position: fixed;
-  align-items: flex-end;
   justify-content: center;
-  padding-bottom: 10px;
-  width: 275px;
-  height: 75px;
+  width: 300px;
+  min-height: 75px;
   max-height: 80vh;
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10px);
@@ -516,6 +515,11 @@ transform: translateY(-50%) rotate(-45deg);
   right: 0;
   bottom: 5%;
   z-index: 10;
+  overflow-y: scroll;
+}
+
+.close-todo {
+  right: 0%;
 }
 
 .todo-active {
@@ -524,14 +528,88 @@ transform: translateY(-50%) rotate(-45deg);
 }
 
 .todo-section {
-
+display: flex;
+flex-direction: column;
+gap: 10px;
 }
+
 .task-list {
+  padding-top: 40px;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid gainsboro;
+}
+
+.task-checkbox {
+  appearance: none;
+}
+
+.task-checkbox:before {
+  display: block;
+  content: " ";
+  width: 11px;
+  height: 11px;
+  font-size: 11px;
+  line-height: 11px;
+  text-align: center;
+  font-weight: 100;
+  color: #fff;
+  background-color:#fff;
+  border: 1px solid gray;
+  border-radius: 3px;
+  transition: all 0.2s ease-in;
+}
+
+.task-checkbox:checked:before {
+  content: "\2713";
+  background-color:#4cbf3f;
+  width: 13px;
+  height: 13px;
+  font-size: 13px;
+  line-height: 13px;
+  border:none;
+  transition: all 0.2s ease-in;
+}
+
+.task-value {
+outline: none;
+word-break: break-all;
+color:black;
+}
+
+.finished p {
+  text-decoration: line-through;
+  color: rgb(92, 92, 92)
+}
+.task-check {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  width: 210px; 
+}
+
+.delete-task {
+  background-image: url('../assets/svg/close-task.svg');
+  background-repeat: no-repeat;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  z-index: 11;
+  cursor: pointer;
 }
 
 .input-wrapper {
   display: flex;
   gap: 10px;
+  padding: 0px 10px 10px 10px;
 }
 
 .input-task {
@@ -544,13 +622,20 @@ transform: translateY(-50%) rotate(-45deg);
 }
 
 .input-button {
-  background: #4cbf3f;
+  background: rgb(187, 187, 187);
   color: #fff;
   border: none;
   border-radius: 5px;
   width: 60px;
   height: 25px;
+  opacity: .7;
 }
+
+.input-button-active {
+  background: #4cbf3f;
+  opacity: 1;
+}
+
 
 @media (max-width: 768px) {
   .time {
