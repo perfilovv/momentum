@@ -12,7 +12,7 @@
 
 <body>
   <header class="header">
-    <div class="player">
+    <div class="player block">
       <p class="song-title"></p>
       <div class="player-controls">
         <button class="play-prev player-icon"></button>
@@ -32,7 +32,7 @@
       </div>
       <ul class="play-list"></ul>
     </div>
-    <div class="weather">
+    <div class="weather block">
       <input type="text" class="city" />
       <i class="weather-icon owf"></i>
       <div class="weather-error"></div>
@@ -49,9 +49,9 @@
       <button class="slide-prev slider-icon"></button>
       <button class="slide-next slider-icon"></button>
     </div>
-    <time class="time"></time>
-    <date class="date"></date>
-    <div class="greeting-container">
+    <time class="time block"></time>
+    <date class="date block"></date>
+    <div class="greeting-container block">
       <span class="greeting"></span>
       <input type="text" class="name" placeholder="[Enter name]" />
     </div>
@@ -70,52 +70,46 @@
             </div>
           </li>
           <li class="settings-list-li">
-            <span class="setting-name">Time</span>
-            <span class="toggle-slider time-on has-toggle-on">
-              <svg class="toggle-switch" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="50"></circle>
-              </svg>
-            </span>
-          </li>
-          <li class="settings-list-li">
-            <span class="setting-name">Date</span>
-            <span class="toggle-slider date-on has-toggle-on">
-              <svg class="toggle-switch" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="50"></circle>
-              </svg>
-            </span>
-          </li>
-          <li class="settings-list-li">
-            <span class="setting-name">Greeting</span>
-            <span class="toggle-slider greeting-on has-toggle-on">
-              <svg class="toggle-switch" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="50"></circle>
-              </svg>
-            </span>
-          </li>
-          <li class="settings-list-li">
-            <span class="setting-name">Quotes</span>
-            <span class="toggle-slider quotes-on has-toggle-on">
-              <svg class="toggle-switch" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="50"></circle>
-              </svg>
-            </span>
-          </li>
-          <li class="settings-list-li">
             <span class="setting-name">Audio player</span>
-            <span class="toggle-slider player-on has-toggle-on">
-              <svg class="toggle-switch" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="50"></circle>
-              </svg>
-            </span>
+            <label class="toggle-slider">
+              <input type="checkbox" class="toggle-switch" checked>
+              <span class="circle-switch"></span>
+            </label>
           </li>
           <li class="settings-list-li">
             <span class="setting-name">Weather</span>
-            <span class="toggle-slider weather-on has-toggle-on">
-              <svg class="toggle-switch" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="50"></circle>
-              </svg>
-            </span>
+            <label class="toggle-slider">
+              <input type="checkbox" class="toggle-switch" checked>
+              <span class="circle-switch"></span>
+            </label>
+          </li>
+          <li class="settings-list-li">
+            <span class="setting-name">Time</span>
+            <label class="toggle-slider">
+              <input type="checkbox" class="toggle-switch" checked>
+              <span class="circle-switch"></span>
+            </label>
+          </li>
+          <li class="settings-list-li">
+            <span class="setting-name">Date</span>
+            <label class="toggle-slider">
+              <input type="checkbox" class="toggle-switch" checked>
+              <span class="circle-switch"></span>
+            </label>
+          </li>
+          <li class="settings-list-li">
+            <span class="setting-name">Greeting</span>
+            <label class="toggle-slider">
+              <input type="checkbox" class="toggle-switch" checked>
+              <span class="circle-switch"></span>
+            </label>
+          </li>
+          <li class="settings-list-li">
+            <span class="setting-name">Quotes</span>
+            <label class="toggle-slider">
+              <input type="checkbox" class="toggle-switch" checked>
+              <span class="circle-switch"></span>
+            </label>
           </li>
           <li class="settings-list-li">
             <span class="setting-name">Background</span>
@@ -132,7 +126,7 @@
         </div>
       </div>
     </div>
-    <div class="quote-wrapper">
+    <div class="quote-wrapper block">
       <button class="change-quote"></button>
       <div>
         <div class="quote"></div>

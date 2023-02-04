@@ -421,82 +421,20 @@ const settings = document.querySelector('.settings');
 const settingsAdd = () => settings.classList.add('settings-active');
 const settingsRemove = () => settings.classList.remove('settings-active');
 const settingsClose = document.querySelector('.settings-close');
-const toggleSlider = document.querySelectorAll('.toggle-slider');
-const timeOn = document.querySelector('.time-on');
-const dateOn = document.querySelector('.date-on');
-const greetingOn = document.querySelector('.greeting-on');
-const quotesOn = document.querySelector('.quotes-on');
-const playerOn = document.querySelector('.player-on');
-const weatherOn = document.querySelector('.weather-on');
-
-const hideWeather = () => {
-  const weather = document.querySelector('.weather');
-  if (weatherOn.classList.contains('has-toggle-on')) {
-    weather.classList.add('hidden');
-  } else {
-    weather.classList.remove('hidden');
-  }
-};
-weatherOn.addEventListener('click', hideWeather);
-
-const hidePlayer = () => {
-  const player = document.querySelector('.player');
-  if (playerOn.classList.contains('has-toggle-on')) {
-    player.classList.add('hidden');
-  } else {
-    player.classList.remove('hidden');
-  }
-};
-playerOn.addEventListener('click', hidePlayer);
-
-const hideQuotes = () => {
-  const quotes = document.querySelector('.quote-wrapper');
-  if (quotesOn.classList.contains('has-toggle-on')) {
-    quotes.classList.add('hidden');
-  } else {
-    quotes.classList.remove('hidden');
-  }
-};
-quotesOn.addEventListener('click', hideQuotes);
-
-
-
-const hideGreeting = () => {
-  const greeting = document.querySelector('.greeting');
-  const name = document.querySelector('.name');
-  if (greetingOn.classList.contains('has-toggle-on')) {
-    greeting.classList.add('hidden');
-    name.classList.add('hidden');
-  } else {
-    greeting.classList.remove('hidden');
-    name.classList.remove('hidden');
-  }
-};
-greetingOn.addEventListener('click', hideGreeting);
-
-
-
-const hideDate = () => {
-  const date = document.querySelector('.date');
-  if (dateOn.classList.contains('has-toggle-on')) {
-    date.classList.add('hidden');
-  } else {
-    date.classList.remove('hidden');
-  }
-};
-dateOn.addEventListener('click', hideDate);
-
-
-
-const hideTime = () => {
-  const time = document.querySelector('.time');
-  if (timeOn.classList.contains('has-toggle-on')) {
-    time.classList.add('hidden');
-  } else {
-    time.classList.remove('hidden');
-  }
-};
-timeOn.addEventListener('click', hideTime);
+const toggleSwitch = document.querySelectorAll('.toggle-switch');
+const blocks = document.querySelectorAll('.block');
+const checkboxState = ['true', 'true', 'true', 'true', 'true', 'true'];
+toggleSwitch.forEach((el, i) => {
+  el.addEventListener('change', () => {
+    if (el.checked) {
+      blocks[i].classList.toggle('hidden');
+      checkboxState[i] = 'false';
+    } else {
+      blocks[i].classList.toggle('hidden');
+      checkboxState[i] = 'true';
+    }
+  });
+});
 
 settingsButton.addEventListener('click', () => {
   if (settings.classList.contains('settings-active')) {
@@ -519,20 +457,6 @@ window.addEventListener('click', (e) => {
     settingsRemove();
   }
 });
-
-toggleSlider.forEach((el) => el.addEventListener('click', () => {
-  const toggleOnAdd = () => el.classList.add('has-toggle-on');
-  const toggleOnRemove = () => el.classList.remove('has-toggle-on');
-  const toggleOffAdd = () => el.classList.add('has-toggle-off');
-  const toggleOffRemove = () => el.classList.remove('has-toggle-off');
-  if (el.classList.contains('has-toggle-on')) {
-    toggleOnRemove();
-    toggleOffAdd();
-  } else {
-    toggleOffRemove();
-    toggleOnAdd();
-  }
-}));
 
 const languageButton = document.querySelectorAll('.language-button');
 const langRu = document.querySelector('.lang-ru');
