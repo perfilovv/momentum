@@ -102,7 +102,7 @@ body {
 }
 
 .item-active::before {
-  color: #C5B358;
+  color: #4cbf3f;
 }
 
 .player-icon,
@@ -556,11 +556,17 @@ gap: 10px;
   align-items: center;
   padding: 10px;
   border-bottom: 1px solid gainsboro;
+  gap: 5px;
 }
 
 .task-checkbox {
   appearance: none;
 }
+
+.task-checkbox:hover {
+  cursor: pointer;
+}
+
 
 .task-checkbox:before {
   display: block;
@@ -622,7 +628,7 @@ color:black;
 .input-wrapper {
   display: flex;
   gap: 10px;
-  padding: 0px 10px 10px 10px;
+  padding-bottom: 10px;
 }
 
 .input-task {
@@ -639,11 +645,14 @@ color:black;
   color: #fff;
   border: none;
   border-radius: 5px;
-  width: 60px;
+  width: 73px;
   height: 25px;
   opacity: .7;
 }
 
+.input-button:hover {
+  cursor: pointer;
+}
 .input-button-active {
   background: #4cbf3f;
   opacity: 1;

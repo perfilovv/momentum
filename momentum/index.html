@@ -65,8 +65,10 @@
           <li class="settings-list-li">
             <span class="setting-name">Change language</span>
             <div class="language-wrapper">
-              <button class="language-button lang-ru">RU</button>
-              <button class="language-button lang-en language-button-active">EN</button>
+              <input type="radio" id="language-russian" name="language">
+              <label for="language-russian" class="language-button" value="ru">RU</label>
+              <input type="radio" id="language-english" name="language" checked>
+              <label for="language-english" class="language-button language-button-active" value="en">EN</label>
             </div>
           </li>
           <li class="settings-list-li">
@@ -114,9 +116,9 @@
           <li class="settings-list-li">
             <span class="setting-name">Background</span>
             <select class="select">
-              <option class="github">Github</option>
-              <option class="unsplash">Unsplash</option>
-              <option class="flickr">Flickr</option>
+              <option class="github" value="github">Github</option>
+              <option class="unsplash" value="unsplash">Unsplash</option>
+              <option class="flickr" value="flickr">Flickr</option>
             </select>
           </li>
         </ul>

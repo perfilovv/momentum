@@ -70,6 +70,7 @@ function setLocalStorage() {
   const name = document.querySelector('.name');
   localStorage.setItem('name', name.value);
   localStorage.setItem('city', city.value);
+  localStorage.setItem('select', select.value);
 }
 window.addEventListener('beforeunload', setLocalStorage);
 
@@ -81,6 +82,9 @@ function getLocalStorage() {
   }
   if (localStorage.getItem('city')) {
     city.value = localStorage.getItem('city');
+  }
+  if (localStorage.getItem('select')) {
+    select.value = localStorage.getItem('select');
   }
   getWeather();
 }
@@ -424,14 +428,15 @@ const settingsClose = document.querySelector('.settings-close');
 const toggleSwitch = document.querySelectorAll('.toggle-switch');
 const blocks = document.querySelectorAll('.block');
 const checkboxState = ['true', 'true', 'true', 'true', 'true', 'true'];
+
 toggleSwitch.forEach((el, i) => {
   el.addEventListener('change', () => {
     if (el.checked) {
-      blocks[i].classList.toggle('hidden');
-      checkboxState[i] = 'false';
-    } else {
-      blocks[i].classList.toggle('hidden');
+      blocks[i].classList.remove('hidden');
       checkboxState[i] = 'true';
+    } else {
+      blocks[i].classList.add('hidden');
+      checkboxState[i] = 'false';
     }
   });
 });
@@ -458,11 +463,24 @@ window.addEventListener('click', (e) => {
   }
 });
 
+// const language = document.querySelector('.language-wrapper');
 const languageButton = document.querySelectorAll('.language-button');
-const langRu = document.querySelector('.lang-ru');
-const langEn = document.querySelector('.lang-en');
 const name = document.querySelector('.name');
 const settingName = document.querySelectorAll('.setting-name');
+
+
+// language.addEventListener('change', (e) => {
+//   lang = e.target.value;
+//   console.log(e.target.value)
+//   if (lang === 'ru') {
+//     translateLanguageRu();
+//     console.log(lang)
+//   }
+//   if (lang === 'en') {
+//     translateLanguageEn();
+//     console.log(lang)
+//   }
+// });
 
 const translateLanguageRu = () => {
   lang = 'ru';
@@ -478,13 +496,16 @@ const translateLanguageRu = () => {
   showDate(lang);
   getQuotes(lang);
   settingName[0].textContent = 'Изменить язык';
-  settingName[1].textContent = 'Время';
-  settingName[2].textContent = 'Дата';
-  settingName[3].textContent = 'Приветствие';
-  settingName[4].textContent = 'Цитаты';
-  settingName[5].textContent = 'Аудио плеер';
-  settingName[6].textContent = 'Погода';
-  settingName[7].textContent = 'Фоновое изображение';
+  settingName[1].textContent = 'Аудио плеер';
+  settingName[2].textContent = 'Погода';
+  settingName[3].textContent = 'Время';
+  settingName[4].textContent = 'Дата';
+  settingName[5].textContent = 'Приветствие';
+  settingName[6].textContent = 'Цитаты';
+  settingName[7].textContent = 'Источник фона';
+  todoButton.textContent = 'Список дел';
+  inputTask.placeholder = 'Новая задача';
+  inputButton.textContent = 'Добавить';
 };
 
 const translateLanguageEn = () => {
@@ -501,12 +522,12 @@ const translateLanguageEn = () => {
   showDate(lang);
   getQuotes(lang);
   settingName[0].textContent = 'Change language';
-  settingName[1].textContent = 'Time';
-  settingName[2].textContent = 'Date';
-  settingName[3].textContent = 'Greeting';
-  settingName[4].textContent = 'Quotes';
-  settingName[5].textContent = 'Audio player';
-  settingName[6].textContent = 'Weather';
+  settingName[1].textContent = 'Audio player';
+  settingName[2].textContent = 'Weather';
+  settingName[3].textContent = 'Time';
+  settingName[4].textContent = 'Date';
+  settingName[5].textContent = 'Greeting';
+  settingName[6].textContent = 'Quotes';
   settingName[7].textContent = 'Background';
 };
 
@@ -523,6 +544,36 @@ languageButton.forEach((el) => el.addEventListener('click', () => {
     translateLanguageEn();
   }
 }));
+
+const setStateLocalStorage = () => {
+  checkboxState.forEach((el, i) => {
+    localStorage.setItem(`checkbox${i}`, el);
+  })
+}
+
+const getStateLocalStorage = () => {
+  checkboxState.forEach((el, i) => {
+    console.log(el, i)
+    checkboxState[i] = localStorage.getItem(`checkbox${i}`);
+    if (checkboxState[i] === 'false') {
+      toggleSwitch[i].checked = false;
+    } else {
+      toggleSwitch[i].checked = true;
+    }
+  })
+}
+
+getStateLocalStorage();
+
+checkboxState.forEach((el, i) => {
+  if (el === 'false') {
+    blocks[i].classList.add('hidden');
+  } else {
+    blocks[i].classList.remove('hidden');
+  }
+})
+
+window.addEventListener('beforeunload', setStateLocalStorage);
 
 async function getLinkToImageUnsplash() {
   const url = 'https://api.unsplash.com/photos/random?orientation=landscape&query=nature&client_id=gnCgwDcRPu-bAMgzvp52Lm7p-xLHPP89lY8B8YwKN7I';
