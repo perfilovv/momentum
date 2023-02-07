@@ -64,12 +64,12 @@
         <ul class="settings-list">
           <li class="settings-list-li">
             <span class="setting-name">Change language</span>
-            <div class="language-wrapper">
-              <input type="radio" id="language-russian" name="language">
-              <label for="language-russian" class="language-button" value="ru">RU</label>
-              <input type="radio" id="language-english" name="language" checked>
-              <label for="language-english" class="language-button language-button-active" value="en">EN</label>
-            </div>
+            <form class="language-wrapper">
+              <input type="radio" id="language-russian" class="input-lang" name="language" value="ru">
+              <label for="language-russian" class="language-button ru-button">RU</label>
+              <input type="radio" id="language-english" class="input-lang" name="language" value="en">
+              <label for="language-english" class="language-button en-button">EN</label>
+            </form>
           </li>
           <li class="settings-list-li">
             <span class="setting-name">Audio player</span>

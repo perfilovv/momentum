@@ -71,6 +71,7 @@ function setLocalStorage() {
   localStorage.setItem('name', name.value);
   localStorage.setItem('city', city.value);
   localStorage.setItem('select', select.value);
+  localStorage.setItem('lang', lang);
 }
 window.addEventListener('beforeunload', setLocalStorage);
 
@@ -85,6 +86,19 @@ function getLocalStorage() {
   }
   if (localStorage.getItem('select')) {
     select.value = localStorage.getItem('select');
+  }
+  if (localStorage.getItem('lang') === 'ru') {
+    languageRussian.checked = true;
+    if (languageRussian.checked === true) {
+      enButton.classList.remove('language-button-active');
+      ruButton.classList.add('language-button-active');
+    }
+    translateLanguageRu();
+  } else {
+    languageEnglish.checked = true;
+    ruButton.classList.remove('language-button-active');
+    enButton.classList.add('language-button-active');
+    translateLanguageEn();
   }
   getWeather();
 }
@@ -463,24 +477,25 @@ window.addEventListener('click', (e) => {
   }
 });
 
-// const language = document.querySelector('.language-wrapper');
+const language = document.querySelector('.language-wrapper');
 const languageButton = document.querySelectorAll('.language-button');
 const name = document.querySelector('.name');
 const settingName = document.querySelectorAll('.setting-name');
+const languageRussian = document.getElementById('language-russian');
+const languageEnglish = document.getElementById('language-english');
+const ruButton = document.querySelector('.ru-button');
+const enButton = document.querySelector('.en-button');
 
 
-// language.addEventListener('change', (e) => {
-//   lang = e.target.value;
-//   console.log(e.target.value)
-//   if (lang === 'ru') {
-//     translateLanguageRu();
-//     console.log(lang)
-//   }
-//   if (lang === 'en') {
-//     translateLanguageEn();
-//     console.log(lang)
-//   }
-// });
+
+language.addEventListener('click', (e) => {
+  lang = e.target.value;
+  if (lang === 'ru') {
+    translateLanguageRu();
+  } else {
+    translateLanguageEn();
+  }
+});
 
 const translateLanguageRu = () => {
   lang = 'ru';
@@ -529,39 +544,37 @@ const translateLanguageEn = () => {
   settingName[5].textContent = 'Greeting';
   settingName[6].textContent = 'Quotes';
   settingName[7].textContent = 'Background';
+  todoButton.textContent = 'TODO';
+  inputTask.placeholder = 'New task';
+  inputButton.textContent = 'Add';
 };
 
 languageButton.forEach((el) => el.addEventListener('click', () => {
-
   const languageActiveRemove = () => languageButton.forEach((el) => el.classList.remove('language-button-active'));
   const languageActiveAdd = () => el.classList.add('language-button-active');
   languageActiveRemove();
   languageActiveAdd();
-
-  if (el.textContent === 'RU') {
-    translateLanguageRu();
-  } else {
-    translateLanguageEn();
-  }
 }));
+
+
+
 
 const setStateLocalStorage = () => {
   checkboxState.forEach((el, i) => {
     localStorage.setItem(`checkbox${i}`, el);
-  })
-}
+  });
+};
 
 const getStateLocalStorage = () => {
   checkboxState.forEach((el, i) => {
-    console.log(el, i)
     checkboxState[i] = localStorage.getItem(`checkbox${i}`);
     if (checkboxState[i] === 'false') {
       toggleSwitch[i].checked = false;
     } else {
       toggleSwitch[i].checked = true;
     }
-  })
-}
+  });
+};
 
 getStateLocalStorage();
 
@@ -571,7 +584,7 @@ checkboxState.forEach((el, i) => {
   } else {
     blocks[i].classList.remove('hidden');
   }
-})
+});
 
 window.addEventListener('beforeunload', setStateLocalStorage);
 
