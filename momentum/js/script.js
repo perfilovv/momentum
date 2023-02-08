@@ -86,6 +86,14 @@ function getLocalStorage() {
   }
   if (localStorage.getItem('select')) {
     select.value = localStorage.getItem('select');
+    if (select.value === 'unsplash') {
+      getLinkToImageUnsplash();
+    }
+    if (select.value === 'flickr') {
+      getLinkToImageFlickr();
+    } else {
+      setBg();
+    }
   }
   if (localStorage.getItem('lang') === 'ru') {
     languageRussian.checked = true;
@@ -124,7 +132,7 @@ function setBg() {
     document.body.style.backgroundSize = 'cover';
   };
 }
-setBg();
+// setBg();
 
 const slideNext = document.querySelector('.slide-next');
 slideNext.addEventListener('click', () => {
@@ -597,6 +605,7 @@ async function getLinkToImageUnsplash() {
   const backgroundUnsplash = img.src;
   img.onload = () => {
     document.body.style.backgroundImage = `url(${backgroundUnsplash})`;
+    document.body.style.backgroundSize = 'cover';
   };
 }
 
@@ -612,6 +621,7 @@ async function getLinkToImageFlickr() {
   const backgroundFlickr = img.src;
   img.onload = () => {
     document.body.style.backgroundImage = `url(${backgroundFlickr})`;
+    document.body.style.backgroundSize = 'cover';
   };
 }
 
