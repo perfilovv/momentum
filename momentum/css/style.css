@@ -664,6 +664,15 @@ color:black;
   display: none;
 }
 
+.bg-tag {
+  max-width: 78px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 1px 4px;
+}
+
 @media (max-width: 768px) {
   .time {
     min-height: 80px;

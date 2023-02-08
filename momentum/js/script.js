@@ -86,14 +86,7 @@ function getLocalStorage() {
   }
   if (localStorage.getItem('select')) {
     select.value = localStorage.getItem('select');
-    if (select.value === 'unsplash') {
-      getLinkToImageUnsplash();
-    }
-    if (select.value === 'flickr') {
-      getLinkToImageFlickr();
-    } else {
-      setBg();
-    }
+    switchBg();
   }
   if (localStorage.getItem('lang') === 'ru') {
     languageRussian.checked = true;
@@ -124,6 +117,18 @@ const timeOfDay = getTimeOfDay();
 let bgNum = getRandomNum().toString().padStart(2, "0");
 let randomNum = bgNum;
 
+const switchBg = () => {
+  if (select.value === 'unsplash') {
+    getLinkToImageUnsplash();
+  }
+  if (select.value === 'flickr') {
+    getLinkToImageFlickr();
+  }
+  if (select.value === 'github') {
+    setBg();
+  }
+};
+
 function setBg() {
   const img = new Image();
   img.src = `https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg`;
@@ -132,7 +137,6 @@ function setBg() {
     document.body.style.backgroundSize = 'cover';
   };
 }
-// setBg();
 
 const slideNext = document.querySelector('.slide-next');
 slideNext.addEventListener('click', () => {
@@ -597,7 +601,7 @@ checkboxState.forEach((el, i) => {
 window.addEventListener('beforeunload', setStateLocalStorage);
 
 async function getLinkToImageUnsplash() {
-  const url = 'https://api.unsplash.com/photos/random?orientation=landscape&query=nature&client_id=gnCgwDcRPu-bAMgzvp52Lm7p-xLHPP89lY8B8YwKN7I';
+  const url = `https://api.unsplash.com/photos/random?orientation=landscape&query=${bgTagValue}&client_id=gnCgwDcRPu-bAMgzvp52Lm7p-xLHPP89lY8B8YwKN7I`;
   const res = await fetch(url);
   const data = await res.json();
   const img = new Image();
@@ -610,12 +614,12 @@ async function getLinkToImageUnsplash() {
 }
 
 async function getLinkToImageFlickr() {
-  const url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=89227889b4c0daea409061b494f237c1&tags=nature&extras=url_l&format=json&nojsoncallback=1';
+  const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=89227889b4c0daea409061b494f237c1&tags=${bgTagValue}&extras=url_l&format=json&nojsoncallback=1`;
   const res = await fetch(url);
   const data = await res.json();
   const img = new Image();
   let min = Math.ceil(1);
-  let max = Math.floor(20);
+  let max = Math.floor(100);
   let randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
   img.src = `${data.photos.photo[randomNum].url_l}`;
   const backgroundFlickr = img.src;
@@ -628,6 +632,19 @@ async function getLinkToImageFlickr() {
 const select = document.querySelector('.select');
 const unsplash = document.querySelector('.unsplash');
 const flickr = document.querySelector('.flickr');
+const bgTag = document.querySelector('.bg-tag');
+let bgTagValue = 'random';
+
+bgTag.addEventListener('submit', (e) => e.preventDefault());
+bgTag.addEventListener('change', (e) => {
+  if (e.target.value === '') {
+    bgTagValue = 'random';
+  } else {
+    bgTagValue = e.target.value;
+  }
+  select.value = localStorage.getItem('select');
+  switchBg();
+});
 
 select.addEventListener('change', () => {
   if (unsplash.selected) {
