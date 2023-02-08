@@ -72,6 +72,7 @@ function setLocalStorage() {
   localStorage.setItem('city', city.value);
   localStorage.setItem('select', select.value);
   localStorage.setItem('lang', lang);
+  localStorage.setItem('bgTag', bgTag.value);
 }
 window.addEventListener('beforeunload', setLocalStorage);
 
@@ -100,6 +101,9 @@ function getLocalStorage() {
     ruButton.classList.remove('language-button-active');
     enButton.classList.add('language-button-active');
     translateLanguageEn();
+  }
+  if (localStorage.getItem('bgTag')) {
+    bgTag.value = localStorage.getItem('bgTag');
   }
   getWeather();
 }
