@@ -32,8 +32,8 @@ const weatherTranslation = {
 };
 
 const quotesJson = {
-    en: ['momentum/assets/quotes.json'],
-    ru: ['momentum/assets/quotes-ru.json'],
+    en: ['assets/quotes.json'],
+    ru: ['assets/quotes-ru.json'],
 };
 let lang = 'en';
 
