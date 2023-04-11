@@ -2,161 +2,161 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="assets/favicon.ico" rel="shortcut icon" />
-  <link rel="stylesheet" href="css/owfont-regular.css" />
-  <link rel="stylesheet" href="css/style.css" />
-  <title>momentum</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="assets/favicon.ico" rel="shortcut icon" />
+    <link rel="stylesheet" href="css/owfont-regular.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>momentum</title>
 </head>
 
 <body>
-  <header class="header">
-    <div class="player block">
-      <p class="song-title"></p>
-      <div class="player-controls">
-        <button class="play-prev player-icon"></button>
-        <button class="play player-icon"></button>
-        <button class="play-next player-icon"></button>
-        <div class="player-timeline-progress">
-          <input type="range" min="0" max="100" value="0" class="progress-bar">
-          <div class="player-time">
-            <div class="player-time-current"></div>
-            <div class="player-time-length"></div>
-          </div>
-          <div class="player-volume">
-            <button class="player-volume-button player-icon player-volume-on"></button>
-            <input type="range" min="0" max="100" value="85" class="player-volume-control">
-          </div>
+    <header class="header">
+        <div class="player block">
+            <p class="song-title"></p>
+            <div class="player-controls">
+                <button class="play-prev player-icon"></button>
+                <button class="play player-icon"></button>
+                <button class="play-next player-icon"></button>
+                <div class="player-timeline-progress">
+                    <input type="range" min="0" max="100" value="0" class="progress-bar">
+                    <div class="player-time">
+                        <div class="player-time-current"></div>
+                        <div class="player-time-length"></div>
+                    </div>
+                    <div class="player-volume">
+                        <button class="player-volume-button player-icon player-volume-on"></button>
+                        <input type="range" min="0" max="100" value="85" class="player-volume-control">
+                    </div>
+                </div>
+            </div>
+            <ul class="play-list"></ul>
         </div>
-      </div>
-      <ul class="play-list"></ul>
-    </div>
-    <div class="weather block">
-      <input type="text" class="city" />
-      <i class="weather-icon owf"></i>
-      <div class="weather-error"></div>
-      <div class="description-container">
-        <span class="temperature"></span>
-        <span class="weather-description"></span>
-      </div>
-      <div class="wind"></div>
-      <div class="humidity"></div>
-    </div>
-  </header>
-  <main class="main">
-    <div class="slider-icons">
-      <button class="slide-prev slider-icon"></button>
-      <button class="slide-next slider-icon"></button>
-    </div>
-    <time class="time block"></time>
-    <date class="date block"></date>
-    <div class="greeting-container block">
-      <span class="greeting"></span>
-      <input type="text" class="name" placeholder="[Enter name]" />
-    </div>
-    <div class="settings-wrapper"></div>
-  </main>
-  <footer class="footer">
-    <div class="settings-wrapper">
-      <div class="settings-button"></div>
-      <div class="settings">
-        <ul class="settings-list">
-          <li class="settings-list-li">
-            <span class="setting-name">Change language</span>
-            <form class="language-wrapper">
-              <input type="radio" id="language-russian" class="input-lang" name="language" value="ru">
-              <label for="language-russian" class="language-button ru-button">RU</label>
-              <input type="radio" id="language-english" class="input-lang" name="language" value="en">
-              <label for="language-english" class="language-button en-button">EN</label>
-            </form>
-          </li>
-          <li class="settings-list-li">
-            <span class="setting-name">Audio player</span>
-            <label class="toggle-slider">
-              <input type="checkbox" class="toggle-switch" checked>
-              <span class="circle-switch"></span>
-            </label>
-          </li>
-          <li class="settings-list-li">
-            <span class="setting-name">Weather</span>
-            <label class="toggle-slider">
-              <input type="checkbox" class="toggle-switch" checked>
-              <span class="circle-switch"></span>
-            </label>
-          </li>
-          <li class="settings-list-li">
-            <span class="setting-name">Time</span>
-            <label class="toggle-slider">
-              <input type="checkbox" class="toggle-switch" checked>
-              <span class="circle-switch"></span>
-            </label>
-          </li>
-          <li class="settings-list-li">
-            <span class="setting-name">Date</span>
-            <label class="toggle-slider">
-              <input type="checkbox" class="toggle-switch" checked>
-              <span class="circle-switch"></span>
-            </label>
-          </li>
-          <li class="settings-list-li">
-            <span class="setting-name">Greeting</span>
-            <label class="toggle-slider">
-              <input type="checkbox" class="toggle-switch" checked>
-              <span class="circle-switch"></span>
-            </label>
-          </li>
-          <li class="settings-list-li">
-            <span class="setting-name">Quotes</span>
-            <label class="toggle-slider">
-              <input type="checkbox" class="toggle-switch" checked>
-              <span class="circle-switch"></span>
-            </label>
-          </li>
-          <li class="settings-list-li">
-            <span class="setting-name">Background</span>
-            <select class="select">
-              <option class="github" value="github">Github</option>
-              <option class="unsplash" value="unsplash">Unsplash</option>
-              <option class="flickr" value="flickr">Flickr</option>
-            </select>
-          </li>
-          <li class="settings-list-li">
-            <span class="setting-name">Background tags</span>
-            <input type="text" class="bg-tag" placeholder="Add a tag">
-          </li>
-        </ul>
-        <div class="settings-close">
-          <span class="settings-close-line"></span>
-          <span class="settings-close-line"></span>
+        <div class="weather block">
+            <input type="text" class="city" />
+            <i class="weather-icon owf"></i>
+            <div class="weather-error"></div>
+            <div class="description-container">
+                <span class="temperature"></span>
+                <span class="weather-description"></span>
+            </div>
+            <div class="wind"></div>
+            <div class="humidity"></div>
         </div>
-      </div>
-    </div>
-    <div class="quote-wrapper block">
-      <button class="change-quote"></button>
-      <div>
-        <div class="quote"></div>
-        <div class="author"></div>
-      </div>
-    </div>
-    <div class="todo-wrapper">
-      <span class="todo-button">TODO</span>
-      <div class="todo-move">
-        <div class="todo-section">
-          <div class="task-list"></div>
-          <div class="input-wrapper">
-            <input type="text" placeholder="New task" class="input-task">
-            <button class="input-button">Add</button>
-          </div>
+    </header>
+    <main class="main">
+        <div class="slider-icons">
+            <button class="slide-prev slider-icon"></button>
+            <button class="slide-next slider-icon"></button>
         </div>
-        <div class="settings-close close-todo">
-          <span class="settings-close-line"></span>
-          <span class="settings-close-line"></span>
+        <time class="time block"></time>
+        <date class="date block"></date>
+        <div class="greeting-container block">
+            <span class="greeting"></span>
+            <input type="text" class="name" placeholder="[Enter name]" />
         </div>
-      </div>
-    </div>
-  </footer>
-  <script type="module" src="js/script.js"></script>
+        <div class="settings-wrapper"></div>
+    </main>
+    <footer class="footer">
+        <div class="settings-wrapper">
+            <div class="settings-button"></div>
+            <div class="settings">
+                <ul class="settings-list">
+                    <li class="settings-list-li">
+                        <span class="setting-name">Change language</span>
+                        <form class="language-wrapper">
+                            <input type="radio" id="language-russian" class="input-lang" name="language" value="ru">
+                            <label for="language-russian" class="language-button ru-button">RU</label>
+                            <input type="radio" id="language-english" class="input-lang" name="language" value="en">
+                            <label for="language-english" class="language-button en-button">EN</label>
+                        </form>
+                    </li>
+                    <li class="settings-list-li">
+                        <span class="setting-name">Audio player</span>
+                        <label class="toggle-slider">
+                            <input type="checkbox" class="toggle-switch" checked>
+                            <span class="circle-switch"></span>
+                        </label>
+                    </li>
+                    <li class="settings-list-li">
+                        <span class="setting-name">Weather</span>
+                        <label class="toggle-slider">
+                            <input type="checkbox" class="toggle-switch" checked>
+                            <span class="circle-switch"></span>
+                        </label>
+                    </li>
+                    <li class="settings-list-li">
+                        <span class="setting-name">Time</span>
+                        <label class="toggle-slider">
+                            <input type="checkbox" class="toggle-switch" checked>
+                            <span class="circle-switch"></span>
+                        </label>
+                    </li>
+                    <li class="settings-list-li">
+                        <span class="setting-name">Date</span>
+                        <label class="toggle-slider">
+                            <input type="checkbox" class="toggle-switch" checked>
+                            <span class="circle-switch"></span>
+                        </label>
+                    </li>
+                    <li class="settings-list-li">
+                        <span class="setting-name">Greeting</span>
+                        <label class="toggle-slider">
+                            <input type="checkbox" class="toggle-switch" checked>
+                            <span class="circle-switch"></span>
+                        </label>
+                    </li>
+                    <li class="settings-list-li">
+                        <span class="setting-name">Quotes</span>
+                        <label class="toggle-slider">
+                            <input type="checkbox" class="toggle-switch" checked>
+                            <span class="circle-switch"></span>
+                        </label>
+                    </li>
+                    <li class="settings-list-li">
+                        <span class="setting-name">Background</span>
+                        <select class="select">
+                            <option class="github" value="github">Github</option>
+                            <option class="unsplash" value="unsplash">Unsplash</option>
+                            <option class="flickr" value="flickr">Flickr</option>
+                        </select>
+                    </li>
+                    <li class="settings-list-li">
+                        <span class="setting-name">Background tags</span>
+                        <input type="text" class="bg-tag" placeholder="Add a tag">
+                    </li>
+                </ul>
+                <div class="settings-close">
+                    <span class="settings-close-line"></span>
+                    <span class="settings-close-line"></span>
+                </div>
+            </div>
+        </div>
+        <div class="quote-wrapper block">
+            <button class="change-quote"></button>
+            <div>
+                <div class="quote"></div>
+                <div class="author"></div>
+            </div>
+        </div>
+        <div class="todo-wrapper">
+            <span class="todo-button">Todo</span>
+            <div class="todo-move">
+                <div class="todo-section">
+                    <div class="task-list"></div>
+                    <div class="input-wrapper">
+                        <input type="text" placeholder="New task" class="input-task">
+                        <button class="input-button">Add</button>
+                    </div>
+                </div>
+                <div class="settings-close close-todo">
+                    <span class="settings-close-line"></span>
+                    <span class="settings-close-line"></span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script type="module" src="js/script.js"></script>
 </body>
 
 </html>
